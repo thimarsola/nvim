@@ -12,6 +12,7 @@ return {
     "html",
     "blade",
     "css",
+    "php",
     "scss",
   },
   root_markers = {
@@ -68,4 +69,3 @@ return {
   --     blink.get_lsp_capabilities()
   -- ),
 }
-

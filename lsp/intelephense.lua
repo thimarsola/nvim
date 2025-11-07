@@ -1,7 +1,11 @@
 local blink = require("blink.cmp")
 
 local get_intelephense_license = function()
-  local f = assert(io.open(os.getenv("HOME") .. "/.config/intelephense/license.txt", "rb"))
+  local license_path = os.getenv("HOME") .. "/.config/intelephense/license.txt"
+  local f = io.open(license_path, "rb")
+  if not f then
+    return nil
+  end
   local content = f:read("*a")
   f:close()
   return string.gsub(content, "%s+", "")

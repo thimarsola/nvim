@@ -1,6 +1,11 @@
 -- Map the leader key as it is needed by lazy
 vim.g.mapleader = ","
 
+-- Disable backup files BEFORE loading plugins to prevent E13 error
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.swapfile = false
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

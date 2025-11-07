@@ -28,6 +28,10 @@ vim.opt.cursorline = false
 -- Store undos between sessions
 vim.opt.undofile = true
 
+-- Disable backup files to prevent E13 error
+vim.opt.backup = false
+vim.opt.writebackup = false
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
@@ -85,3 +89,5 @@ function _G.MyFoldText()
   local lines_count = vim.v.foldend - vim.v.foldstart + 1
   return " " .. line .. " ... (" .. lines_count .. " lines)"
 end
+
+vim.keymap.set("n", "<C-d>", "yyp", { noremap = true })
