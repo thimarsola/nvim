@@ -91,3 +91,4 @@ function _G.MyFoldText()
 end
 
 vim.keymap.set("n", "<C-d>", "yyp", { noremap = true })
+vim.g.user_emmet_leader_key = "<C-y>"
