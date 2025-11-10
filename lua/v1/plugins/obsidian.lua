@@ -17,7 +17,7 @@ return {
       workspaces = {
         {
           name = "default",
-          path = "~/Obsidian",
+          path = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian",
         },
       },
 
