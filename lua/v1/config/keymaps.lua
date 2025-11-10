@@ -89,6 +89,17 @@ local keys = {
   Key:new("<leader>on", "n", "[O]bsidian [N]ew Note", Markdown:obsidian_create_note()),
   Key:new("<leader>os", "n", "[O]bsidian [S]earch Notes", Markdown:obsidian_search()),
   Key:new("<leader>og", "n", "[O]bsidian [G]rep Search", Markdown:obsidian_grep_search()),
+
+  -- Harpoon
+  Key:new("<space>j", "n", "[H]arpoon [P]revious", Harpoon:prev()),
+  Key:new("<space>k", "n", "[H]arpoon [N]ext", Harpoon:next()),
+  Key:new("<space>l", "n", "[H]arpoon [L]ist", Harpoon:list()),
+  Key:new("<space>a", "n", "[H]arpoon [A]dd", Harpoon:add()),
+  Key:new("<space>q", "n", "[H]arpoon [S]elect", Harpoon:select(1)),
+  Key:new("<space>w", "n", "[H]arpoon [2]nd Select", Harpoon:select(2)),
+  Key:new("<space>e", "n", "[H]arpoon [3]rd Select", Harpoon:select(3)),
+  Key:new("<space>r", "n", "[H]arpoon [4]th Select", Harpoon:select(4)),
+  Key:new("<space>t", "n", "[H]arpoon [5]th Select", Harpoon:select(5)),
 }
 
 Keymaps:load(keys)
@@ -109,17 +120,17 @@ vim.keymap.set("v", ">", ">gv")
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("keymaps-lsp-attach", { clear = true }),
   callback = function()
-    local keys = {
+    local lsp_keys = {
       Key:new("gd", "n", "[G]oto [D]efinition(s)", LSP:definitions()),
+      Key:new("gD", "n", "[G]oto [D]eclaration", LSP:declaration()),
       Key:new("gr", "n", "[G]oto [R]eference(s)", LSP:references()),
       Key:new("gI", "n", "[G]oto [I]mplementation(s)", LSP:implementations()),
-      Key:new("gD", "n", "[G]oto [D]eclaration", LSP:declaration()),
       Key:new("<leader>D", "n", "Type [D]efinition", LSP:type_definition()),
       Key:new("<leader>cr", "n", "[R]ename", LSP:rename()),
       Key:new("<leader>ca", { "n", "x" }, "[C]ode [A]ction", LSP:code_action()),
     }
 
-    Keymaps:load(keys)
+    Keymaps:load(lsp_keys)
 
     -- Remove potential conflicts with other plugins
     for _, keymap in ipairs({ "grr", "gra", "gri", "grn" }) do
