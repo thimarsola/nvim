@@ -122,6 +122,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("keymaps-lsp-attach", { clear = true }),
   callback = function()
     local lsp_keys = {
+      -- Standard LSP navigation
       Key:new("gd", "n", "[G]oto [D]efinition(s)", LSP:definitions()),
       Key:new("gD", "n", "[G]oto [D]eclaration", LSP:declaration()),
       Key:new("gr", "n", "[G]oto [R]eference(s)", LSP:references()),
@@ -129,6 +130,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
       Key:new("<leader>D", "n", "Type [D]efinition", LSP:type_definition()),
       Key:new("<leader>cr", "n", "[R]ename", LSP:rename()),
       Key:new("<leader>ca", { "n", "x" }, "[C]ode [A]ction", LSP:code_action()),
+
+      -- PHPStorm-like shortcuts
+      -- Cmd+B (Ctrl+B) -> Go to definition (like gd)
+      Key:new("<C-b>", "n", "Go to Definition (PHPStorm)", LSP:definitions()),
+      -- Cmd+Alt+B (Ctrl+Alt+B) -> Go to implementation
+      Key:new("<C-M-b>", "n", "Go to Implementation (PHPStorm)", LSP:implementations()),
+      -- Shift+Cmd+F (Shift+Ctrl+F) -> Find in files (already mapped via telescope)
+      -- Cmd+E (Ctrl+E) -> Recent files
+      Key:new("<C-e>", "n", "Recent Files (PHPStorm)", Find:old_files()),
+      -- Alt+F7 -> Find usages (using Trouble for better view)
+      Key:new("<M-F7>", "n", "Find Usages (PHPStorm)", "<cmd>Trouble lsp_references toggle<cr>", true),
+      -- Shift+F6 -> Rename
+      Key:new("<S-F6>", "n", "Rename Symbol (PHPStorm)", LSP:rename()),
+      -- Cmd+F12 (Ctrl+F12) -> File structure
+      Key:new("<C-F12>", "n", "File Structure (PHPStorm)", Find:lsp_document_symbols()),
+      -- F2 -> Next error
+      Key:new("<F2>", "n", "Next Error (PHPStorm)", Diagnostics:goto_next()),
+      -- Shift+F2 -> Previous error
+      Key:new("<S-F2>", "n", "Previous Error (PHPStorm)", Diagnostics:goto_prev()),
     }
 
     Keymaps:load(lsp_keys)

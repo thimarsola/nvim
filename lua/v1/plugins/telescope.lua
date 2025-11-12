@@ -38,4 +38,17 @@ return {
       require("telescope").load_extension("nerdy")
     end,
   },
+
+  -- Add refactoring extension for telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    optional = true,
+    dependencies = {
+      "ThePrimeagen/refactoring.nvim",
+    },
+    config = function()
+      -- Load refactoring extension if available
+      pcall(require("telescope").load_extension, "refactoring")
+    end,
+  },
 }

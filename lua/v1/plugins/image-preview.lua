@@ -13,6 +13,8 @@ return {
     "vhyrro/luarocks.nvim",
     -- this plugin needs to run before anything else
     priority = 1001,
+    -- Only enable if ImageMagick is installed
+    enabled = vim.fn.executable("magick") == 1 or vim.fn.executable("convert") == 1,
     opts = {
       rocks = { "magick" },
     },
@@ -20,6 +22,9 @@ return {
   {
     "3rd/image.nvim",
     dependencies = { "luarocks.nvim" },
+    -- Only enable if ImageMagick is installed and terminal supports images
+    enabled = (vim.fn.executable("magick") == 1 or vim.fn.executable("convert") == 1)
+      and (os.getenv("TERM") == "xterm-kitty" or os.getenv("KITTY_WINDOW_ID") ~= nil),
     config = function()
       require("image").setup({
         backend = "kitty",

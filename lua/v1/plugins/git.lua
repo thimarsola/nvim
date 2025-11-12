@@ -39,7 +39,7 @@ return {
           follow_files = true,
         },
         attach_to_untracked = true,
-        current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+        current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
         current_line_blame_opts = {
           virt_text = true,
           virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
@@ -84,7 +84,14 @@ return {
         function()
           require("gitsigns").blame_line()
         end,
-        desc = "Blame",
+        desc = "Blame Line (full)",
+      },
+      {
+        "<leader>gt",
+        function()
+          require("gitsigns").toggle_current_line_blame()
+        end,
+        desc = "Toggle Inline Blame",
       },
       {
         "<leader>gp",
@@ -144,11 +151,30 @@ return {
       },
     },
   },
-  -- {
-  --   "sindrets/diffview.nvim",
-  --   event = "VeryLazy",
-  --   cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
-  -- },
+  {
+    "sindrets/diffview.nvim",
+    lazy = true,
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
+    config = function()
+      require("diffview").setup({
+        enhanced_diff_hl = true,
+        view = {
+          default = {
+            layout = "diff2_horizontal",
+          },
+          merge_tool = {
+            layout = "diff3_horizontal",
+          },
+        },
+      })
+    end,
+    keys = {
+      { "<leader>gD", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
+      { "<leader>gC", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
+      { "<leader>gH", "<cmd>DiffviewFileHistory %<cr>", desc = "File History" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "Branch History" },
+    },
+  },
   {
     "kdheepak/lazygit.nvim",
     lazy = true,
