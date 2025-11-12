@@ -1,4 +1,4 @@
-local obsidian_vault = "/Users/r2luna/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes"
+local obsidian_vault = "/Users/marsola/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian"
 
 Markdown = {}
 Markdown.__index = Markdown
@@ -367,7 +367,7 @@ local function parse_project_structure(path)
   local area, project, tags = nil, nil, {}
 
   for _, part in ipairs(parts) do
-    -- Match pattern like "01.r2luna" for area
+    -- Match pattern like "01.marsola" for area
     if not area then
       local area_match = string.match(part, "^(%d%d%.[^.]+)$")
       if area_match then
@@ -462,7 +462,7 @@ function Markdown:obsidian_create_note()
 
     local target_folder
     if string.find(project_path, vault_path, 1, true) then
-      target_folder = vault_path .. "/inbox"
+      target_folder = vault_path .. "/notes"
     else
       target_folder = find_obsidian_folder(project_path, vault_path)
     end

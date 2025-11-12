@@ -31,7 +31,7 @@ return {
         border = "rounded",
       },
       ghost_text = {
-        enabled = true,
+        enabled = false,
       },
 
       documentation = {

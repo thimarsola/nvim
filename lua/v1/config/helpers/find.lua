@@ -9,6 +9,16 @@ function Find:files()
   end
 end
 
+function Find:all_files()
+  return function()
+    telescope.find_files(themes.get_ivy({
+      no_ignore = true,
+      hidden = true,
+      file_ignore_patterns = { "node_modules", "vendor", ".git/" },
+    }))
+  end
+end
+
 function Find:livewire_files()
   return function()
     telescope.find_files(themes.get_ivy({ default_text = "⚡️" }))
