@@ -254,13 +254,13 @@ function Markdown:sort_todos()
       end
     end
 
-    -- Clean up excessive blank lines (more than 1 consecutive)
+    -- Clean up excessive blank lines (more than 2 consecutive)
     local cleaned_result = {}
     local blank_count = 0
     for _, line in ipairs(result) do
       if line == "" or line:match("^%s*$") then
         blank_count = blank_count + 1
-        if blank_count <= 1 then
+        if blank_count <= 2 then
           table.insert(cleaned_result, line)
         end
       else
@@ -342,9 +342,7 @@ function Markdown:obsidian_setup_inbox_keymaps()
 
     if string.find(current_dir, inbox_path, 1, true) then
       Keymaps:load({
-        Key:new("<leader>ok", "n", "Set Note as O[K]", function()
-          Markdown:obsidian_move_to_zettelkasten()
-        end),
+        Key:new("<leader>ok", "n", "Set Note as O[K]", move_to_zettelkasten()),
         -- Obsidian
         Key:new("<leader>on", "n", "[O]bsidian [N]ew Note", Markdown:obsidian_create_note()),
         Key:new("<leader>os", "n", "[O]bsidian [S]earch Notes", Markdown:obsidian_search()),
@@ -462,14 +460,9 @@ function Markdown:obsidian_create_note()
     local vault_path = vim.fn.expand(obsidian_vault)
     local project_path = vim.fn.getcwd()
 
-    -- Normalize paths for comparison
-    local normalized_vault = vault_path:gsub("/+$", "")
-    local normalized_project = project_path:gsub("/+$", "")
-
     local target_folder
-    -- Check if we're inside the vault directory
-    if normalized_project == normalized_vault or normalized_project:match("^" .. vim.pesc(normalized_vault) .. "/") then
-      target_folder = vault_path .. "/inbox"
+    if string.find(project_path, vault_path, 1, true) then
+      target_folder = vault_path .. "/notes"
     else
       target_folder = find_obsidian_folder(project_path, vault_path)
     end
