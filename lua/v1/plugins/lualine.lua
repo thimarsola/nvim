@@ -27,10 +27,8 @@ return {
             return "  " .. table.concat(lsps, " | ")
           end
         end,
-        color = { gui = "bold" },
+        color = {},
       }
-
-      local colors = require("vesper.colors")
 
       require("lualine").setup({
         options = {
@@ -64,29 +62,26 @@ return {
               "diagnostics",
               sources = { "nvim_diagnostic" },
               symbols = { error = " ", warn = " ", info = " " },
-              diagnostics_color = {
-                color_error = { fg = colors.red },
-                color_warn = { fg = colors.yellow },
-                color_info = { fg = colors.cyan },
-              },
+              -- diagnostics_color = {
+              --   color_error = { fg = colors.red },
+              --   color_warn = { fg = colors.yellow },
+              --   color_info = { fg = colors.cyan },
+              -- },
             },
             {
               "diff",
               symbols = { added = " ", modified = " ", removed = " " },
-              diff_color = {
-                added = { fg = colors.green },
-                modified = { fg = colors.orange },
-                removed = { fg = colors.red },
-              },
+              -- diff_color = {
+              --   added = { fg = colors.green },
+              --   modified = { fg = colors.orange },
+              --   removed = { fg = colors.red },
+              -- },
             },
             "encoding",
             "fileformat",
             "filetype",
             lsp_status,
-            {
-              "location",
-              color = { bg = "NONE", gui = "bold" },
-            },
+            "location",
           },
           lualine_y = { "" },
           lualine_z = { "" },
