@@ -19,6 +19,8 @@ return {
       -- Map C-Z in conjunction with C-Y for completion, as we are on a QWRTZ
       -- keyboard.
       -- ["<C-Z>"] = { "accept", "fallback" },
+      ["<Tab>"] = { "snippet_forward", "select_and_accept", "fallback" },
+      ["<S-Tab>"] = { "snippet_backward", "fallback" },
     },
 
     appearance = {

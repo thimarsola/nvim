@@ -27,14 +27,17 @@ return {
     },
   },
   opts = {
-    -- log_level = vim.log.levels.DEBUG,
-    notify_on_error = false,
+    log_level = vim.log.levels.DEBUG,
+    notify_on_error = true,
 
     formatters = {
       pint = {
-        -- Sempre usar PHP local ao invés do Docker
-        command = "php",
-        args = { "./vendor/bin/pint", "--quiet", "$FILENAME" },
+        meta = {
+          url = "https://github.com/laravel/pint",
+          description = "Laravel Pint is an opinionated PHP code style fixer for minimalists.",
+        },
+        command = "vendor/bin/pint",
+        args = { "$FILENAME" },
         stdin = false,
       },
     },
