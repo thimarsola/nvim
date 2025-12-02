@@ -188,8 +188,11 @@ return {
             server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 
             -- Desabilitar formatação do LSP para evitar conflito com conform
-            server.capabilities.documentFormattingProvider = false
-            server.capabilities.documentRangeFormattingProvider = false
+            -- Exceto para intelephense (PHP) que formata HTML bem
+            if server_name ~= "intelephense" then
+              server.capabilities.documentFormattingProvider = false
+              server.capabilities.documentRangeFormattingProvider = false
+            end
             require("lspconfig")[server_name].setup(server)
           end,
         },

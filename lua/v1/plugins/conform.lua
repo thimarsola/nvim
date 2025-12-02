@@ -70,7 +70,8 @@ return {
       -- python = { "isort", "black" },
 
       -- PHP/Laravel
-      php = { "pint" },
+      -- Removed: Let LSP (intelephense) handle PHP formatting including HTML
+      -- php = { "pint" },
 
       -- Shell
       sh = { "shfmt" },
