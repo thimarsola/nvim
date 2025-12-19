@@ -2,10 +2,19 @@ return {
   "folke/snacks.nvim",
   ---@type snacks.Config
   opts = {
+    input = {
+      enabled = true, -- Disabled temporarily to debug reverse typing issue
+    },
+    picker = {
+      enabled = true,
+    },
+    terminal = {
+      enabled = true,
+    },
     indent = {
       enabled = true,
       picker = {
-          enabled = true
+        enabled = true,
       },
       animate = {
         enabled = false,

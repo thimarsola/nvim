@@ -249,4 +249,24 @@ return {
       { "<leader>aq", mode = { "n", "v" }, desc = "Quick Chat" },
     },
   },
+  {
+    "NickvanDyke/opencode.nvim",
+    dependencies = {
+      -- Recommended for `ask()` and `select()`.
+      -- Required for `snacks` provider.
+      ---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
+      "folke/snacks.nvim",
+    },
+    config = function()
+      ---@type opencode.Opts
+      vim.g.opencode_opts = {
+        -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
+      }
+
+      -- Required for `opts.events.reload`.
+      vim.o.autoread = true
+
+      -- All the keymaps are configured on the keymaps.lua file
+    end,
+  },
 }
