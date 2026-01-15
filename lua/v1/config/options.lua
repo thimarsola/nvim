@@ -86,7 +86,6 @@ function _G.MyFoldText()
   return " " .. line .. " ... (" .. lines_count .. " lines)"
 end
 
-vim.keymap.set("n", "<C-d>", "yyp", { noremap = true })
 vim.g.user_emmet_leader_key = "<C-y>"
 
 -- Window Border

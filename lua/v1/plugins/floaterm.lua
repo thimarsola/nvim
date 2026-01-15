@@ -3,7 +3,7 @@ return {
   branch = "master",
   config = function()
     vim.keymap.set("n", "<leader>.", "<cmd>FloatermToggle<cr>", { desc = "Toggle terminal", silent = true })
-    vim.keymap.set("t", "<escape>", "<C-\\><C-n>:FloatermHide<CR>")
+    vim.keymap.set("t", "<C-q>", "<C-\\><C-n>:FloatermHide<CR>")
 
     vim.g.floaterm_gitcommit = "floaterm"
     vim.g.floaterm_autoinsert = 1
