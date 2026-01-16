@@ -21,6 +21,8 @@ return {
       -- ["<C-Z>"] = { "accept", "fallback" },
       ["<Tab>"] = { "select_and_accept", "snippet_forward", "fallback" },
       ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      ["<Down>"] = { "select_next", "fallback" },
+      ["<Up>"] = { "select_prev", "fallback" },
     },
 
     appearance = {
@@ -60,13 +62,19 @@ return {
     },
 
     sources = {
-      default = { "lsp", "snippets", "buffer" },
+      default = { "ecolog", "lsp", "snippets", "buffer" },
+      providers = {
+        ecolog = {
+          name = "ecolog",
+          module = "ecolog.integrations.cmp.blink_cmp",
+        },
+      },
     },
   },
 
   config = function(_, opts)
     local U = require("v1.util")
     U.newColorWithBase("CmpGhostText", "NonText")
-    require("blink-cmp").setup(opts)
+    require("blink.cmp").setup(opts)
   end,
 }
