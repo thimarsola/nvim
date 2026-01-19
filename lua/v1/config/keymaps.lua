@@ -227,3 +227,14 @@ vim.keymap.set("n", "<leader>ax", function()
     end
   end)
 end, { desc = "[A]i test vi[X].ui.input" })
+
+---------------------------------------------------------------------------------------------------
+-- Laravel specific keymaps
+---------------------------------------------------------------------------------------------------
+vim.keymap.set("n", "<leader>la", ":Artisan ", { desc = "[L]aravel [A]rtisan" })
+vim.keymap.set("n", "<leader>lm", ":Artisan make:", { desc = "[L]aravel [M]ake" })
+vim.keymap.set("n", "<leader>lr", ":Artisan route:list<CR>", { desc = "[L]aravel [R]outes" })
+vim.keymap.set("n", "<leader>lc", ":Artisan config:clear<CR>", { desc = "[L]aravel [C]onfig Clear" })
+vim.keymap.set("n", "<leader>lC", ":Artisan cache:clear<CR>", { desc = "[L]aravel [C]ache Clear" })
+vim.keymap.set("n", "<leader>li", ":Artisan migrate<CR>", { desc = "[L]aravel M[i]grate" })
+vim.keymap.set("n", "<leader>ls", ":Artisan migrate:status<CR>", { desc = "[L]aravel Migrate [S]tatus" })
