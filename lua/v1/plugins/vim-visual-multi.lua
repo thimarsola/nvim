@@ -7,7 +7,6 @@ return {
       ["Find Subword Under"] = "<C-d>",
       ["Add Cursor Down"] = "<C-Down>",
       ["Add Cursor Up"] = "<C-Up>",
-      ["Select All"] = "<C-a>",
     }
   end,
 }
