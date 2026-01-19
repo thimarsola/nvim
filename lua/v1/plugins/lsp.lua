@@ -216,23 +216,47 @@ return {
   },
 
   -- ------------------------------------------------------------------------------
-  -- Laravel LSP Support
+  -- Laravel LSP Support (adalessa/laravel.nvim - mais completo)
   {
-    "adibhanna/laravel.nvim",
+    "adalessa/laravel.nvim",
     enabled = true,
     ft = { "php", "blade" },
     dependencies = {
-      "folke/snacks.nvim", -- Optional: for enhanced UI
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = { "Laravel" },
+    keys = {
+      { "<leader>la", "<cmd>Laravel artisan<cr>", desc = "Laravel Artisan" },
+      { "<leader>lr", "<cmd>Laravel routes<cr>", desc = "Laravel Routes" },
+      { "<leader>lm", "<cmd>Laravel related<cr>", desc = "Laravel Related (Models)" },
+      { "<leader>ll", "<cmd>Laravel<cr>", desc = "Laravel Menu" },
     },
     config = function()
       require("laravel").setup({
-        notifications = false,
-        debug = false,
-        keymaps = true,
-        sail = {
-          enabled = false,
+        lsp_server = "intelephense",
+        features = {
+          route_info = { enable = true },
+          model_info = { enable = true },
+        },
+        ui = {
+          default = "telescope",
+        },
+        environments = {
+          auto_dicover = true,
         },
       })
     end,
+  },
+
+  -- Blade navigation (gf para ir para views/components)
+  {
+    "RicardoRamirezR/blade-nav.nvim",
+    ft = { "blade", "php" },
+    dependencies = { "saghen/blink.cmp" },
+    opts = {
+      close_tag_on_complete = false,
+    },
   },
 }

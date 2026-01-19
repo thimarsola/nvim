@@ -62,11 +62,28 @@ return {
     },
 
     sources = {
-      default = { "ecolog", "lsp", "snippets", "buffer" },
+      default = { "ecolog", "lsp", "snippets", "buffer", "path" },
+      per_filetype = {
+        blade = { "blade-nav", "ecolog", "lsp", "snippets", "buffer", "path" },
+        php = { "blade-nav", "ecolog", "lsp", "snippets", "buffer", "path" },
+      },
       providers = {
         ecolog = {
           name = "ecolog",
           module = "ecolog.integrations.cmp.blink_cmp",
+        },
+        path = {
+          name = "Path",
+          module = "blink.cmp.sources.path",
+          score_offset = 3,
+        },
+        ["blade-nav"] = {
+          name = "blade-nav",
+          module = "blade-nav.blink",
+          score_offset = 10,
+          opts = {
+            close_tag_on_complete = false, -- desativa pois você usa autopairs
+          },
         },
       },
     },
