@@ -220,7 +220,7 @@ return {
   {
     "adalessa/laravel.nvim",
     enabled = true,
-    ft = { "php", "blade" },
+    event = { "VeryLazy" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
@@ -237,15 +237,37 @@ return {
       require("laravel").setup({
         lsp_server = "intelephense",
         features = {
-          route_info = { enable = true },
-          model_info = { enable = true },
+          pickers = {
+            enable = true,
+            provider = "telescope", -- telescope, fzf-lua, ui.select, or snacks
+          },
         },
         ui = {
-          default = "telescope",
+          default = "split", -- split or popup for command execution
         },
         environments = {
           auto_dicover = true,
         },
+      })
+
+      -- Create the :Laravel user command
+      vim.api.nvim_create_user_command("Laravel", function(opts)
+        local command = opts.args
+        if command == "" or command == "command_center" then
+          -- If no args, open command center
+          Laravel.commands.run("command_center")
+        elseif command == "artisan" then
+          Laravel.commands.run("picker:artisan")
+        elseif command == "routes" then
+          Laravel.commands.run("picker:routes")
+        elseif command == "related" then
+          Laravel.commands.run("picker:related")
+        else
+          vim.notify("Unknown Laravel command: " .. command, vim.log.levels.ERROR)
+        end
+      end, {
+        nargs = "?",
+        desc = "Laravel commands",
       })
     end,
   },
