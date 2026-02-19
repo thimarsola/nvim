@@ -23,10 +23,10 @@ local keys = {
   Key:new("WW", "n", "Save file", ":w<CR>", true),
 
   -- Movement
-  Key:new("<C-h>", "n", "Move to the left window", "<cmd>TmuxNavigateLeft<CR>", true),
-  Key:new("<C-j>", "n", "Move to the bottom window", "<cmd>TmuxNavigateDown<CR>", true),
-  Key:new("<C-k>", "n", "Move to the top window", "<cmd>TmuxNavigateUp<CR>", true),
-  Key:new("<C-l>", "n", "Move to the right window", "<cmd>TmuxNavigateRight<CR>", true),
+  Key:new("<C-h>", { "n", "t" }, "Move to the left window", "<cmd>TmuxNavigateLeft<CR>", true),
+  Key:new("<C-j>", { "n", "t" }, "Move to the bottom window", "<cmd>TmuxNavigateDown<CR>", true),
+  Key:new("<C-k>", { "n", "t" }, "Move to the top window", "<cmd>TmuxNavigateUp<CR>", true),
+  Key:new("<C-l>", { "n", "t" }, "Move to the right window", "<cmd>TmuxNavigateRight<CR>", true),
 
   -- Finds
   Key:new("<leader>fi", "n", "[F]ind [I]cons", Find:icons()),
@@ -206,12 +206,19 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 ---------------------------------------------------------------------------------------------------
--- Ai specific keymaps
+-- Claude Code
 ---------------------------------------------------------------------------------------------------
 Keymaps:load({
-  Key:new("<leader>ai", "n", "[A]i", AI:toggle()),
-  Key:new("<leader>aa", "n", "[A]i [A]sk", AI:ask("@this: ", {})),
-  Key:new("<leader>as", "v", "[A]i [S]election", AI:ask("@selection: ")),
+  Key:new("<leader>acc", "n", "Toggle [C]laude", "<cmd>ClaudeCode<cr>", true),
+  Key:new("<leader>acf", "n", "[F]ocus Claude", "<cmd>ClaudeCodeFocus<cr>", true),
+  Key:new("<leader>acr", "n", "[R]esume Claude", "<cmd>ClaudeCode --resume<cr>", true),
+  Key:new("<leader>aco", "n", "C[O]ntinue Claude", "<cmd>ClaudeCode --continue<cr>", true),
+  Key:new("<leader>acm", "n", "Select [M]odel", "<cmd>ClaudeCodeSelectModel<cr>", true),
+  Key:new("<leader>acb", "n", "Add current [B]uffer", "<cmd>ClaudeCodeAdd %<cr>", true),
+  Key:new("<leader>act", "n", "Add file from [T]ree", "<cmd>ClaudeCodeTreeAdd<cr>", true),
+  Key:new("<leader>acs", "v", "[S]end selection", "<cmd>ClaudeCodeSend<cr>", true),
+  Key:new("<leader>aca", "n", "[A]ccept diff", "<cmd>ClaudeCodeDiffAccept<cr>", true),
+  Key:new("<leader>acd", "n", "[D]eny diff", "<cmd>ClaudeCodeDiffDeny<cr>", true),
 })
 
 -- Debug: Test opencode ask directly (use <leader>ad to test)
