@@ -131,6 +131,9 @@ end
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
+-- Paste over text without yanking it (prevents overwriting clipboard)
+vim.keymap.set("x", "p", '"_dP', { silent = true, desc = "Paste without yanking" })
+
 -- ------------------------------------------------------------------------------
 -- Load keys when LSP is attached
 -- ------------------------------------------------------------------------------
