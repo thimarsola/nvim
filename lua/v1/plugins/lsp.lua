@@ -12,7 +12,7 @@ return {
         group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
         callback = function(event)
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,
@@ -49,15 +49,19 @@ return {
         { "│", "FloatBorder" },
       }
 
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = border,
-        max_width = 80,
-        max_height = 20,
-      })
+      vim.lsp.handlers["textDocument/hover"] = function(...)
+        vim.lsp.buf.hover({
+          border = border,
+          max_width = 80,
+          max_height = 20,
+        })
+      end
 
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-        border = border,
-      })
+      vim.lsp.handlers["textDocument/signatureHelp"] = function(...)
+        vim.lsp.buf.signature_help({
+          border = border,
+        })
+      end
 
       vim.diagnostic.config({
         float = { border = border },

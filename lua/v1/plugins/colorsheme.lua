@@ -5,7 +5,8 @@ return {
     priority = 1000,
   },
   {
-    "maxmx03/solarized.nvim",
+    -- "maxmx03/solarized.nvim",
+    "sainnhe/everforest",
     lazy = false,
     priority = 1000,
     opts = {
@@ -30,7 +31,7 @@ return {
       end,
       set_light_mode = function()
         vim.o.background = "light"
-        vim.cmd("colorscheme solarized")
+        vim.cmd("colorscheme everforest")
       end,
     },
   },
