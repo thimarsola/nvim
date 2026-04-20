@@ -8,9 +8,9 @@ vim.opt.swapfile = false
 
 -- Loading additional configs
 require("v1.config.options")
+require("v1.config.treesitter-fix") -- Proteção contra erros do treesitter
 require("v1.lazy")
 require("v1.config.commands")
 require("v1.config.keymaps")
 require("v1.config.lsp")
 require("v1.snippets")
-require("v1.config.autocmds")

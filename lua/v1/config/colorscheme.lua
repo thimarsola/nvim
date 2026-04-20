@@ -16,7 +16,7 @@ local colors = {
   statusbar_bg = "#2D3441", -- mini.nvim statusline background
 
   -- Foreground colors
-  fg0 = "#eceff4", -- editorCursor.foreground, active foreground
+  fg0 = "#eceff4", -- editorCursor.foreground, a tive foreground
   fg1 = "#e5e9f0", -- terminal.ansiWhite
   fg2 = "#d8dee9", -- editor.foreground, default foreground
   fg3 = "#8d929c", -- comments color

@@ -13,10 +13,21 @@ return {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons", -- optional dependency
   },
-  opts = {
-    kinds = false,
-    theme = {
-      -- normal = { bg = "#101010" },
-    },
-  },
+  opts = function()
+    -- Função para obter as cores baseado no background
+    local function get_bg_color()
+      if vim.o.background == "light" then
+        return "#efebd4" -- Modo light (Everforest)
+      else
+        return "#0f1318" -- Modo dark (Pinnord)
+      end
+    end
+
+    return {
+      kinds = false,
+      theme = {
+        normal = { bg = get_bg_color() },
+      },
+    }
+  end,
 }

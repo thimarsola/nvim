@@ -24,47 +24,89 @@ return {
           if #lsps == 0 then
             return msg
           else
-            return "  " .. table.concat(lsps, " | ")
+            return "  " .. table.concat(lsps, " | ")
           end
         end,
         color = {},
       }
 
+      -- Função para obter o tema baseado no background
+      local function get_theme()
+        if vim.o.background == "light" then
+          -- Cores para modo light (Everforest)
+          return {
+            normal = {
+              a = { bg = "#efebd4", fg = "#5c6a72" },
+              b = { bg = "#efebd4", fg = "#5c6a72" },
+              c = { bg = "#efebd4", fg = "#5c6a72" },
+            },
+            insert = {
+              a = { bg = "#efebd4", fg = "#83b370" },
+              b = { bg = "#efebd4", fg = "#5c6a72" },
+              c = { bg = "#efebd4", fg = "#5c6a72" },
+            },
+            visual = {
+              a = { bg = "#efebd4", fg = "#d99a5e" },
+              b = { bg = "#efebd4", fg = "#5c6a72" },
+              c = { bg = "#efebd4", fg = "#5c6a72" },
+            },
+            replace = {
+              a = { bg = "#efebd4", fg = "#f57d75" },
+              b = { bg = "#efebd4", fg = "#5c6a72" },
+              c = { bg = "#efebd4", fg = "#5c6a72" },
+            },
+            command = {
+              a = { bg = "#efebd4", fg = "#35a77c" },
+              b = { bg = "#efebd4", fg = "#5c6a72" },
+              c = { bg = "#efebd4", fg = "#5c6a72" },
+            },
+            inactive = {
+              a = { bg = "#efebd4", fg = "#939f91" },
+              b = { bg = "#efebd4", fg = "#939f91" },
+              c = { bg = "#efebd4", fg = "#939f91" },
+            },
+          }
+        else
+          -- Cores para modo dark (Pinnord)
+          return {
+            normal = {
+              a = { bg = "#0f1318", fg = "#d8dee9" },
+              b = { bg = "#0f1318", fg = "#d8dee9" },
+              c = { bg = "#0f1318", fg = "#d8dee9" },
+            },
+            insert = {
+              a = { bg = "#0f1318", fg = "#a3be8c" },
+              b = { bg = "#0f1318", fg = "#d8dee9" },
+              c = { bg = "#0f1318", fg = "#d8dee9" },
+            },
+            visual = {
+              a = { bg = "#0f1318", fg = "#ebcb8b" },
+              b = { bg = "#0f1318", fg = "#d8dee9" },
+              c = { bg = "#0f1318", fg = "#d8dee9" },
+            },
+            replace = {
+              a = { bg = "#0f1318", fg = "#bf616a" },
+              b = { bg = "#0f1318", fg = "#d8dee9" },
+              c = { bg = "#0f1318", fg = "#d8dee9" },
+            },
+            command = {
+              a = { bg = "#0f1318", fg = "#88c0d0" },
+              b = { bg = "#0f1318", fg = "#d8dee9" },
+              c = { bg = "#0f1318", fg = "#d8dee9" },
+            },
+            inactive = {
+              a = { bg = "#0f1318", fg = "#8d929c" },
+              b = { bg = "#0f1318", fg = "#8d929c" },
+              c = { bg = "#0f1318", fg = "#8d929c" },
+            },
+          }
+        end
+      end
+
       require("lualine").setup({
         options = {
           icons_enabled = true,
-          theme = {
-            normal = {
-              a = { bg = "NONE" },
-              b = { bg = "NONE" },
-              c = { bg = "NONE" },
-            },
-            insert = {
-              a = { bg = "NONE" },
-              b = { bg = "NONE" },
-              c = { bg = "NONE" },
-            },
-            visual = {
-              a = { bg = "NONE" },
-              b = { bg = "NONE" },
-              c = { bg = "NONE" },
-            },
-            replace = {
-              a = { bg = "NONE" },
-              b = { bg = "NONE" },
-              c = { bg = "NONE" },
-            },
-            command = {
-              a = { bg = "NONE" },
-              b = { bg = "NONE" },
-              c = { bg = "NONE" },
-            },
-            inactive = {
-              a = { bg = "NONE" },
-              b = { bg = "NONE" },
-              c = { bg = "NONE" },
-            },
-          },
+          theme = get_theme(),
           component_separators = "|",
           section_separators = { left = "", right = "" },
           disabled_filetypes = {
@@ -92,7 +134,7 @@ return {
             {
               "diagnostics",
               sources = { "nvim_diagnostic" },
-              symbols = { error = " ", warn = " ", info = " " },
+              symbols = { error = " ", warn = " ", info = " " },
               -- diagnostics_color = {
               --   color_error = { fg = colors.red },
               --   color_warn = { fg = colors.yellow },
@@ -101,7 +143,7 @@ return {
             },
             {
               "diff",
-              symbols = { added = " ", modified = " ", removed = " " },
+              symbols = { added = " ", modified = " ", removed = " " },
               -- diff_color = {
               --   added = { fg = colors.green },
               --   modified = { fg = colors.orange },
@@ -129,6 +171,18 @@ return {
         winbar = {},
         inactive_winbar = {},
         extensions = {},
+      })
+
+      -- Atualizar lualine quando o background mudar
+      vim.api.nvim_create_autocmd("OptionSet", {
+        pattern = "background",
+        callback = function()
+          require("lualine").setup({
+            options = {
+              theme = get_theme(),
+            },
+          })
+        end,
       })
     end,
   },

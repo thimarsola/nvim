@@ -37,34 +37,8 @@ return {
         end,
       })
 
-      -- Make hover window have borders
-      local border = {
-        { "╭", "FloatBorder" },
-        { "─", "FloatBorder" },
-        { "╮", "FloatBorder" },
-        { "│", "FloatBorder" },
-        { "╯", "FloatBorder" },
-        { "─", "FloatBorder" },
-        { "╰", "FloatBorder" },
-        { "│", "FloatBorder" },
-      }
-
-      vim.lsp.handlers["textDocument/hover"] = function(...)
-        vim.lsp.buf.hover({
-          border = border,
-          max_width = 80,
-          max_height = 20,
-        })
-      end
-
-      vim.lsp.handlers["textDocument/signatureHelp"] = function(...)
-        vim.lsp.buf.signature_help({
-          border = border,
-        })
-      end
-
       vim.diagnostic.config({
-        float = { border = border },
+        float = { border = "rounded" },
       })
 
       -- Show window/showMessage requests using vim.notify instead of logging to messages
@@ -224,7 +198,6 @@ return {
   {
     "adalessa/laravel.nvim",
     enabled = true,
-    event = { "VeryLazy" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",

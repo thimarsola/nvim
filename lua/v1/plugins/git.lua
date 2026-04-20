@@ -60,6 +60,12 @@ return {
         },
 
         on_attach = function(bufnr)
+          -- Don't attach to non-file buffers
+          local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
+          if buftype ~= "" then
+            return false
+          end
+
           vim.keymap.set(
             "n",
             "<leader>H",

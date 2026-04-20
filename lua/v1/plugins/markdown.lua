@@ -7,7 +7,7 @@
 
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  enabled = true,
+  enabled = false,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-web-devicons",
@@ -16,6 +16,16 @@ return {
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {
+    -- Previne erros de conceal com nós inválidos
+    render_modes = { "n", "c" },
+    anti_conceal = {
+      enabled = true,
+    },
+    win_options = {
+      conceallevel = {
+        rendered = 1,
+      },
+    },
     heading = {
       enabled = true,
       width = "block",
