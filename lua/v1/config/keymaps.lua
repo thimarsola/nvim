@@ -134,6 +134,34 @@ vim.keymap.set("v", ">", ">gv")
 -- Paste over text without yanking it (prevents overwriting clipboard)
 vim.keymap.set("x", "p", '"_dP', { silent = true, desc = "Paste without yanking" })
 
+-- Select word under cursor with Enter
+vim.keymap.set("n", "<CR>", "viw", { silent = true, desc = "Select word under cursor" })
+
+-- Select inside quotes/tag with double Enter (smart detection)
+vim.keymap.set("n", "<CR><CR>", function()
+  local line = vim.api.nvim_get_current_line()
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+
+  -- Check for quotes around cursor
+  local before = line:sub(1, col + 1)
+  local after = line:sub(col + 1)
+
+  -- If inside quotes, select content inside quotes
+  if before:match('["\']') and after:match('["\']') then
+    -- Try double quotes first, then single quotes
+    if before:match('"') and after:match('"') then
+      vim.cmd('normal! vi"')
+    elseif before:match("'") and after:match("'") then
+      vim.cmd("normal! vi'")
+    else
+      vim.cmd('normal! vit')
+    end
+  else
+    -- Default to tag selection
+    vim.cmd('normal! vit')
+  end
+end, { silent = true, desc = "Select inside quotes or tag" })
+
 -- ------------------------------------------------------------------------------
 -- Load keys when LSP is attached
 -- ------------------------------------------------------------------------------
