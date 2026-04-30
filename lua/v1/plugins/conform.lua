@@ -27,17 +27,14 @@ return {
     },
   },
   opts = {
-    log_level = vim.log.levels.DEBUG,
-    notify_on_error = true,
+    -- log_level = vim.log.levels.DEBUG,
+    notify_on_error = false,
 
     formatters = {
       pint = {
-        meta = {
-          url = "https://github.com/laravel/pint",
-          description = "Laravel Pint is an opinionated PHP code style fixer for minimalists.",
-        },
-        command = "vendor/bin/pint",
-        args = { "$FILENAME" },
+        -- Sempre usar PHP local ao invés do Docker
+        command = "php",
+        args = { "./vendor/bin/pint", "--quiet", "$FILENAME" },
         stdin = false,
       },
     },
@@ -53,25 +50,24 @@ return {
       lua = { "stylua" },
 
       -- Web technologies
-      javascript = { "prettier" },
-      typescript = { "prettier" },
-      javascriptreact = { "prettier" },
-      typescriptreact = { "prettier" },
-      json = { "prettier" },
-      jsonc = { "prettier" },
-      yaml = { "prettier" },
-      markdown = { "prettier" },
-      html = { "prettier" },
-      blade = { "pint" },
-      css = { "prettier" },
-      scss = { "prettier" },
+      javascript = { "prettierd", "prettier", stop_after_first = true },
+      typescript = { "prettierd", "prettier", stop_after_first = true },
+      javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+      typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+      json = { "prettierd", "prettier", stop_after_first = true },
+      jsonc = { "prettierd", "prettier", stop_after_first = true },
+      yaml = { "prettierd", "prettier", stop_after_first = true },
+      markdown = { "prettierd", "prettier", stop_after_first = true },
+      html = { "prettierd", "prettier", stop_after_first = true },
+      blade = { "prettier" },
+      css = { "prettierd", "prettier", stop_after_first = true },
+      scss = { "prettierd", "prettier", stop_after_first = true },
 
       -- Python
       -- python = { "isort", "black" },
 
       -- PHP/Laravel
-      -- Removed: Let LSP (intelephense) handle PHP formatting including HTML
-      -- php = { "pint" },
+      php = { "pint" },
 
       -- Shell
       sh = { "shfmt" },
