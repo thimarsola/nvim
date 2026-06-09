@@ -17,10 +17,6 @@ function Find:files()
         "!node_modules/",
         "--glob",
         "!vendor/",
-        "--glob",
-        ".env*",
-        "--glob",
-        "workspace/**",
       },
     }))
   end
@@ -31,6 +27,22 @@ function Find:files_all()
     telescope.find_files(themes.get_ivy({
       hidden = true,
       no_ignore = true,
+      find_command = {
+        "rg",
+        "--files",
+        "--hidden",
+        "--no-ignore",
+        "--glob",
+        "!.git/",
+        "--glob",
+        "!node_modules/",
+        "--glob",
+        "!vendor/",
+        "--glob",
+        "!web/wp/",
+        "--glob",
+        "!web/app/plugins/",
+      },
     }))
   end
 end
