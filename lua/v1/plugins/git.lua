@@ -159,26 +159,12 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    lazy = true,
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
-    config = function()
-      require("diffview").setup({
-        enhanced_diff_hl = true,
-        view = {
-          default = {
-            layout = "diff2_horizontal",
-          },
-          merge_tool = {
-            layout = "diff3_horizontal",
-          },
-        },
-      })
-    end,
+    dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-      { "<leader>gD", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
-      { "<leader>gC", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
-      { "<leader>gH", "<cmd>DiffviewFileHistory %<cr>", desc = "File History" },
-      { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "Branch History" },
+      { "<leader>gv", "<cmd>DiffviewOpen<cr>", desc = "Diff[v]iew Open" },
+      { "<leader>gV", "<cmd>DiffviewClose<cr>", desc = "Diff[V]iew Close" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview File [H]istory" },
     },
   },
   {

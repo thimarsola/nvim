@@ -45,11 +45,14 @@ local keys = {
   Key:new("<leader>fS", "n", "[F]ind Workspace [S]ymbols", Find:lsp_workspace_symbols()),
   Key:new("<leader>fs", "n", "[F]ind Document [S]ymbols", Find:lsp_document_symbols()),
   Key:new("<leader>ff", "n", "[F]ind [F]iles", Find:files()),
-  Key:new(",fa", "n", "[F]ind [A]ll Files (including ignored)", Find:all_files()),
+  Key:new("<leader>fF", "n", "[F]ind All [F]iles (incl. vendor/node_modules)", Find:files_all()),
+  Key:new("<leader>fa", "n", "[F]ind [A]ll Files (including ignored)", Find:files_all()),
   Key:new("<leader>fl", "n", "[F]ind [L]ivewire ⚡️ Files", Find:livewire_files()),
   Key:new("<leader>fc", "n", "[F]ind [C]onfig files", Find:config_files()),
   Key:new("<leader><leader>", "n", "[,] Find existing buffers", Find:buffers()),
   Key:new("<leader>fm", "n", "[F]ind [M]essages", Find:notifications()),
+  Key:new("<leader>fx", "n", "[F]ind Git Conflicts", Find:git_conflicts()),
+  Key:new("<leader>fC", "n", "[F]ind in Git [C]hanges", Find:find_git_changes()),
 
   -- Todos
   Key:new("<leader>ft", "n", "[F]ind [T]odos, Fixmes, Hacks, ...", Find:todos()),
@@ -147,18 +150,18 @@ vim.keymap.set("n", "<CR><CR>", function()
   local after = line:sub(col + 1)
 
   -- If inside quotes, select content inside quotes
-  if before:match('["\']') and after:match('["\']') then
+  if before:match("[\"']") and after:match("[\"']") then
     -- Try double quotes first, then single quotes
     if before:match('"') and after:match('"') then
       vim.cmd('normal! vi"')
     elseif before:match("'") and after:match("'") then
       vim.cmd("normal! vi'")
     else
-      vim.cmd('normal! vit')
+      vim.cmd("normal! vit")
     end
   else
     -- Default to tag selection
-    vim.cmd('normal! vit')
+    vim.cmd("normal! vit")
   end
 end, { silent = true, desc = "Select inside quotes or tag" })
 
