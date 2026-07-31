@@ -177,6 +177,24 @@ return {
         ensure_installed = {},
         automatic_installation = true,
       })
+
+      -- Laravel LSP (laravel/lsp) - instalado via `composer global require laravel/lsp`
+      -- Não é um pacote Mason; configurado via API nativa vim.lsp (Neovim 0.11+)
+      -- Requer `~/.composer/vendor/bin` no PATH
+      if vim.fn.executable("laravel-lsp") == 1 then
+        local laravel_caps = vim.tbl_deep_extend("force", {}, capabilities)
+        -- Formatação fica com conform/pint, não com o LSP
+        laravel_caps.documentFormattingProvider = false
+        laravel_caps.documentRangeFormattingProvider = false
+
+        vim.lsp.config("laravel_lsp", {
+          cmd = { "laravel-lsp" },
+          filetypes = { "php", "blade" },
+          root_markers = { "artisan", "composer.json", ".git" },
+          capabilities = laravel_caps,
+        })
+        vim.lsp.enable("laravel_lsp")
+      end
     end,
   },
   -- LSP Plugins
