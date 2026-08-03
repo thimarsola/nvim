@@ -271,5 +271,6 @@ end, { desc = "[A]i test vi[X].ui.input" })
 
 ---------------------------------------------------------------------------------------------------
 -- Laravel specific keymaps
--- NOTE: Laravel keymaps are now defined in lua/v1/plugins/lsp.lua via adalessa/laravel.nvim plugin
+-- NOTE: adalessa/laravel.nvim removido. Laravel LSP oficial (laravel/lsp) config em
+-- lua/v1/plugins/lsp.lua. <leader>lt (abrir test file) fica em after/ftplugin/php.lua.
 ---------------------------------------------------------------------------------------------------

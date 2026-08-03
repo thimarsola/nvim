@@ -190,7 +190,10 @@ return {
         vim.lsp.config("laravel_lsp", {
           cmd = { "laravel-lsp" },
           filetypes = { "php", "blade" },
-          root_markers = { "artisan", "composer.json", ".git" },
+          -- Apenas `artisan` marca raiz Laravel. composer.json/.git existem em
+          -- qualquer repo PHP/git e fazem o server recusar init com
+          -- "Initialize request root URI must be a Laravel project.".
+          root_markers = { "artisan" },
           capabilities = laravel_caps,
         })
         vim.lsp.enable("laravel_lsp")
@@ -209,62 +212,6 @@ return {
         { path = "luvit-meta/library", words = { "vim%.uv" } },
       },
     },
-  },
-
-  -- ------------------------------------------------------------------------------
-  -- Laravel LSP Support (adalessa/laravel.nvim - mais completo)
-  {
-    "adalessa/laravel.nvim",
-    enabled = true,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    cmd = { "Laravel" },
-    keys = {
-      { "<leader>la", "<cmd>Laravel artisan<cr>", desc = "Laravel Artisan" },
-      { "<leader>lr", "<cmd>Laravel routes<cr>", desc = "Laravel Routes" },
-      { "<leader>lm", "<cmd>Laravel related<cr>", desc = "Laravel Related (Models)" },
-      { "<leader>ll", "<cmd>Laravel<cr>", desc = "Laravel Menu" },
-    },
-    config = function()
-      require("laravel").setup({
-        lsp_server = "intelephense",
-        features = {
-          pickers = {
-            enable = true,
-            provider = "telescope", -- telescope, fzf-lua, ui.select, or snacks
-          },
-        },
-        ui = {
-          default = "split", -- split or popup for command execution
-        },
-        environments = {
-          auto_dicover = true,
-        },
-      })
-
-      -- Create the :Laravel user command
-      vim.api.nvim_create_user_command("Laravel", function(opts)
-        local command = opts.args
-        if command == "" or command == "command_center" then
-          -- If no args, open command center
-          Laravel.commands.run("command_center")
-        elseif command == "artisan" then
-          Laravel.commands.run("picker:artisan")
-        elseif command == "routes" then
-          Laravel.commands.run("picker:routes")
-        elseif command == "related" then
-          Laravel.commands.run("picker:related")
-        else
-          vim.notify("Unknown Laravel command: " .. command, vim.log.levels.ERROR)
-        end
-      end, {
-        nargs = "?",
-        desc = "Laravel commands",
-      })
-    end,
   },
 
   -- Blade navigation (gf para ir para views/components)
