@@ -79,7 +79,7 @@ return {
         },
         ["blade-nav"] = {
           name = "blade-nav",
-          module = "blade-nav.blink",
+          module = "blade-nav.integrations.blink",
           score_offset = 10,
           opts = {
             close_tag_on_complete = false, -- desativa pois você usa autopairs
