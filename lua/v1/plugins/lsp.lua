@@ -193,7 +193,19 @@ return {
           -- Apenas `artisan` marca raiz Laravel. composer.json/.git existem em
           -- qualquer repo PHP/git e fazem o server recusar init com
           -- "Initialize request root URI must be a Laravel project.".
-          root_markers = { "artisan" },
+          -- root_dir callback: só anexa se achar `artisan`. Sem on_dir(),
+          -- o client não inicia — evita modo single-file com root nil, que
+          -- gera "Initialize request must include a workspace root URI.".
+          root_dir = function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            local found = vim.fs.find("artisan", {
+              upward = true,
+              path = vim.fn.fnamemodify(fname, ":p:h"),
+            })[1]
+            if found then
+              on_dir(vim.fs.dirname(found))
+            end
+          end,
           capabilities = laravel_caps,
         })
         vim.lsp.enable("laravel_lsp")

@@ -38,7 +38,7 @@ local function apply_light()
   -- GitHub light (tritanopia) — paired with the matching Ghostty theme.
   -- Opaque: no transparency overrides in light mode.
   vim.o.background = "light"
-  vim.cmd("colorscheme github_light_tritanopia")
+  vim.cmd("colorscheme solarized")
 end
 
 local function apply_system_theme()
@@ -50,6 +50,19 @@ local function apply_system_theme()
 end
 
 return {
+  {
+    "maxmx03/solarized.nvim",
+    lazy = false,
+    priority = 1000,
+    ---@type solarized.config
+    opts = {},
+    config = function(_, opts)
+      vim.o.termguicolors = true
+      vim.o.background = "light"
+      require("solarized").setup(opts)
+      vim.cmd.colorscheme("solarized")
+    end,
+  },
   {
     -- Higher priority so github_light_tritanopia is available before the eager apply below.
     "projekt0n/github-nvim-theme",
